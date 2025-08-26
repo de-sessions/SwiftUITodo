@@ -30,7 +30,7 @@ struct TaskEditView: View {
       .background(
         RoundedRectangle(cornerRadius: 5)
           .fill(Color.clear)
-          .border(Color(red: 0.7, green: 0.7, blue: 0.7), width: 1 / UIScreen.main.scale, cornerRadius: 5)
+          .border(Color.secondary, width: 1 / UIScreen.main.scale, cornerRadius: 5)
           .padding(inset)
       )
       .padding(EdgeInsets(
