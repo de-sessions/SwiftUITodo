@@ -11,26 +11,24 @@ import SwiftUI
 struct TaskEditView: View {
   @EnvironmentObject var userData: UserData
   private let task: Task
-  private var draftTitle: State<String>
+  @State private var draftTitle: String
 
   init(task: Task) {
     self.task = task
-    self.draftTitle = .init(initialValue: task.title)
+    self._draftTitle = State(initialValue: task.title)
   }
 
   var body: some View {
     let inset = EdgeInsets(top: -8, leading: -10, bottom: -7, trailing: -10)
     return VStack(alignment: .leading, spacing: 0) {
-      TextField(
-        self.draftTitle.binding,
-        placeholder: Text("Enter New Title..."),
-        onEditingChanged: { _ in self.updateTask() },
-        onCommit: {}
-      )
+      TextField("Enter New Title...", text: $draftTitle, onEditingChanged: { _ in self.updateTask() })
       .background(
         RoundedRectangle(cornerRadius: 5)
           .fill(Color.clear)
-          .border(Color(red: 0.7, green: 0.7, blue: 0.7), width: 1 / UIScreen.main.scale, cornerRadius: 5)
+          .overlay(
+            RoundedRectangle(cornerRadius: 5)
+              .stroke(Color.secondary, lineWidth: 1 / UIScreen.main.scale)
+          )
           .padding(inset)
       )
       .padding(EdgeInsets(
@@ -47,6 +45,6 @@ struct TaskEditView: View {
 
   private func updateTask() {
     guard let index = self.userData.tasks.firstIndex(of: self.task) else { return }
-    self.userData.tasks[index].title = self.draftTitle.value
+    self.userData.tasks[index].title = self.draftTitle
   }
 }

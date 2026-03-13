@@ -15,7 +15,7 @@ struct TaskListView: View {
 
   var body: some View {
     List {
-      TextField($draftTitle, placeholder: Text("Create a New Task..."), onCommit: self.createTask)
+      TextField("Create a New Task...", text: $draftTitle, onCommit: self.createTask)
       ForEach(self.userData.tasks) { task in
         TaskItemView(task: task, isEditing: self.$isEditing)
       }

@@ -19,10 +19,10 @@ struct TaskItemView: View {
       if self.isEditing {
         Image(systemName: "minus.circle")
           .foregroundColor(.red)
-          .tapAction(count: 1) {
+          .onTapGesture {
             self.delete()
           }
-        NavigationButton(destination: TaskEditView(task: task).environmentObject(self.userData)) {
+        NavigationLink(destination: TaskEditView(task: task).environmentObject(self.userData)) {
           Text(task.title)
         }
       } else {
